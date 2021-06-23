@@ -1,0 +1,40 @@
+<div class="card">
+    <div class="card-body">
+        <uilocker name="table"></uilocker>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="col-1 d-none d-md-table-cell">Date</th>
+                    <th>Payment</th>
+                    <th>Fullname</th>
+                    <th class="d-none d-md-table-cell">Region</th>
+                    <th class="text-center">Position</th>
+                    <th class="col-1 text-center"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="item in items" :class="{ 'bg-muted-lt': $store.getters.getCurrentApplicant == item.id, 'fw-bolder' : item.payment_status == 1 }" style="height: 40px">
+                    <td class="d-none d-md-table-cell"><small>{{ item.created_at | toDate }}</small></td>
+                    <td>
+                        <div v-show="item.payment_status == 1" class="badge bg-yellow"><b>Pending</b></div>
+                        <div v-show="item.payment_status == 2" class="badge bg-green"><b>Completed</b></div>
+                        <div v-show="item.payment_status == 3" class="badge bg-muted"><b>Outdated</b></div>
+                        <div v-show="item.payment_status == 4" class="badge bg-red"><b>Failed</b></div>
+                    </td>
+                    <td>{{ item.firstname }} {{ item.lastname }}</td>
+                    <td class="d-none d-md-table-cell"><i>{{ item.region_str }}</i></td>
+                    <td class="text-center">{{ item.field_position_str }}</td>
+                    <td class="text-center">
+                        <button @click="getDetails(item.id)" class="btn btn-sm btn-outline-info">Details</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="card-footer">
+        <div class="d-flex justify-content-center">
+            <pagination v-model="meta.current_page" @input="fetch({ page: meta.current_page })" :perpage="meta.per_page" :total="meta.total" :l-siblings="2" :r-siblings="2"></pagination>
+        </div>
+    </div>
+</div>

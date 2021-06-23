@@ -1,0 +1,16 @@
+<form @submit.prevent="send()" class="card card-md" autocomplete="off">
+    <uilocker name="form"></uilocker>
+    <div class="card-body">
+        <h2 class="card-title text-center mb-4">Login to your account</h2>
+        <form-field label="Your Login">
+            <form-input :errors="errors.login" v-model="formData.login" placeholder="Provide your Login" tabindex="1" autofocus></form-input>
+        </form-field>
+        <form-field label="Password">
+            <form-password :errors="errors.login" v-model="formData.password" placeholder="Password" tabindex="2"></form-password>
+        </form-field>
+        <hr>
+        <div class="form-footer">
+            <button type="submit" class="btn btn-primary w-100" tabindex="3">Sign in</button>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,59 @@
+<modal-simple ref="modal" title="Candid / Player Details" type="lg" @hidden="$store.commit('clearCurrentApplicant')">
+    <div class="row" v-if="applicant">
+        <uilocker name="modal"></uilocker>
+        <div class="col-md-4 d-flex align-items-center justify-content-center">
+            <img :src="applicant.photo" class="rounded-circle w-75">
+        </div>
+        <div class="col-md-8">
+            <h1 class="text-center py-2">
+                <img src="/assets/images/football-player.svg" class="mr-2" style="height: 1em; vertical-align: center">
+                <span>{{ fullname }}</span>
+            </h1>
+            <table class="table table-bordered">
+                <colgroup>
+                    <col class="col-md-3 py-5">
+                    <col class="col-md-9 py-5">
+                </colgroup>
+                <tbody>
+                    <tr v-if="applicant.team_str"><th>Team Name</th><td>{{ applicant.team_str }}</td></tr>
+                    <tr><th>Region</th><td>{{ applicant.region_str }}</td></tr>
+                    <tr><th>Position</th><td>{{ applicant.field_position_str }}</td></tr>
+                    <tr><th>Birthday</th><td>{{ applicant.birthday | toDate }}</td></tr>
+                    <tr v-if="applicant.age_group_str"><th>Age Group</th><td>{{ applicant.age_group_str }}</td></tr>
+                    <tr><th>Email</th><td>{{ applicant.email }}</td></tr>
+                    <tr><th>Phone</th><td>{{ applicant.phone }}</td></tr>
+                    <tr><th>Registered at</th><td>{{ applicant.created_at | toDate }}</td></tr>
+                    <tr>
+                        <th>Paid at</th>
+                        <td>
+                            <div v-if="applicant.paid_at">{{ applicant.paid_at | toDate }}</div>
+                            <div v-else class="text-warning">No Payment</div>
+                        </td>
+                    </tr>
+                    <tr v-if="!applicant.paid_at">
+                        <th>Payment link</th>
+                        <td><code>{{ applicant.payment_link }}</code></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div slot="footer">
+        <uilocker name="footer"></uilocker>
+        <div class="row">
+            <div class="col-6" v-if="applicant">
+                <a href="#" @click.prevent="sendRegistrationMail()" class="btn btn-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><rect x="3" y="5" width="18" height="14" rx="2" /><polyline points="3 7 12 13 21 7" /></svg>
+                    Resend
+                </a>
+                <a href="#" @click.prevent="refresh()" class="btn btn-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 4.55a8 8 0 0 0 -6 14.9m0 -4.45v5h-5" /><line x1="18.37" y1="7.16" x2="18.37" y2="7.17" /><line x1="13" y1="19.94" x2="13" y2="19.95" /><line x1="16.84" y1="18.37" x2="16.84" y2="18.38" /><line x1="19.37" y1="15.1" x2="19.37" y2="15.11" /><line x1="19.94" y1="11" x2="19.94" y2="11.01" /></svg>
+                    Refresh
+                </a>
+            </div>
+            <div class="col-6 text-end">
+                <button type="button" class="btn me-auto" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</modal-simple>

@@ -1,0 +1,31 @@
+<modal-simple ref="modal" title="Team Details" @hidden="followToTeams()">
+    <div>
+        <uilocker name="modal"></uilocker>
+        <div v-if="team && fieldPositions" class="row">
+            <div class="col-6">
+                <ol v-if="playerPositions">
+                    <li v-for="item in playerPositions" class="m-2">
+                        <strong>{{ item.abbr }}: </strong>
+                        <span v-if="item.player" class="text-primary">{{ item.player.firstname }} {{ item.player.lastname }}</span>
+                        <span v-else class="text-muted">Empty Position</span>
+                    </li>
+                </ol>
+            </div>
+            <div class="col-6">
+                <div id="field">
+                    <div style="grid-column: 3/5"><span :class="{'badge bg-primary': playerPositions[0] && playerPositions[0].player}">GK</span></div>
+                    <div style="grid-column: 2/3"><span :class="{'badge bg-primary': playerPositions[1] && playerPositions[1].player}">LB</span></div>
+                    <div><span :class="{'badge bg-primary': playerPositions[2] && playerPositions[2].player}">LCB</span></div>
+                    <div><span :class="{'badge bg-primary': playerPositions[3] && playerPositions[3].player}">RCB</span></div>
+                    <div><span :class="{'badge bg-primary': playerPositions[4] && playerPositions[4].player}">RB</span></div>
+                    <div style="grid-column: 3/5"><span :class="{'badge bg-primary': playerPositions[5] && playerPositions[5].player}">DM</span></div>
+                    <div style="grid-column: 1/3"><span :class="{'badge bg-primary': playerPositions[6] && playerPositions[6].player}">LW</span></div>
+                    <div style="grid-column: 3/5"><span :class="{'badge bg-primary': playerPositions[7] && playerPositions[7].player}">CM</span></div>
+                    <div style="grid-column: 5/7"><span :class="{'badge bg-primary': playerPositions[8] && playerPositions[8].player}">RW</span></div>
+                    <div style="grid-column: 3/5"><span :class="{'badge bg-primary': playerPositions[9] && playerPositions[9].player}">AM</span></div>
+                    <div style="grid-column: 3/5"><span :class="{'badge bg-primary': playerPositions[10] && playerPositions[10].player}">CF</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</modal-simple>
